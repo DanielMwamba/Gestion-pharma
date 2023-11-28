@@ -15,3 +15,5 @@ function ProductPreview({ product, seeMore}) {
         </div>
     );
 }
+
+export default ProductPreview
