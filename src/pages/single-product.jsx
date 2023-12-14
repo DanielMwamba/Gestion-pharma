@@ -1,19 +1,15 @@
 import { useParams } from "react-router-dom";
-import  ProductService from "../models/services/productService.js";
-import ProductPreview from "../components/product-preview/product-preview.jsx";
+import ProductPreview from "../components/product-preview/product-preview";
+import ProductService from "../models/services/productService";
 
-function SingleProduct() {
-    const {id} = useParams();
-
+export default function SignleProduct() {
+    const { id } = useParams();
     const data = ProductService.getProducts();
-
     const product = data.find((product) => product.id === id);
 
-    return(
+    return (
         <>
-          <ProductPreview product={product} seeMore={true}></ProductPreview>
+            <ProductPreview product={product} seeMore={true}></ProductPreview>
         </>
-    )
+    );
 }
-
-export default SingleProduct

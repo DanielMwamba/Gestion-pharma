@@ -18,10 +18,10 @@ class ProductService {
                 name: "Ibuprofène",
                 image: "https://dummyimage.com/200x200/000/fff&text=Ibuprofene",
                 description: "Il est disponible en comprimés, en gélules, en suppositoires et en sirop. La dose recommandée pour les adultes est de 200 à 400 milligrammes par prise, jusqu'à 4 prises par jour"
-            }
+            },
         ];
         return products;
     }
  }
 
- export default ProductService
+ export default ProductService;

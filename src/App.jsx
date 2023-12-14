@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import UserContext from "./context/UserContext";
+
+
+import Login from "./pages/login";
+import Home from "./pages/home";
+import SingleProduct from "./pages/single-product";
+import About from "./pages/about";
+import Products from "./pages/product";
+import ProductsList from "./pages/products-list";
+import Layout from "./components/layout/layout";
+import AdminLayout from "./components/layout/admin-layout";
+import AllProducts from "./pages/all-products";
+import CreateProduct from "./pages/create-product";
+import UpdateProduct from "./pages/update-product";
+import DeleteProduct from "./pages/delete-product";
+
+
+
+// import "./App.css";
+// import Layout from "./components/Layout/layout";
+// import About from "./pages/about";
+// import AdminLayout from "./components/layout/admin-layout";
+// import Login from "./pages/login";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [pseudo, setPseudo] = useState(null);
+
+  const handleLoginSubmit = (userName) => {
+    setPseudo(userName);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <UserContext.Provider value={{isLogged: true, pseudo: pseudo}}>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login onLoginSubmit={handleLoginSubmit}/>} />
+
+        <Route path="/" element={<Layout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="products" element={<Products />}>
+            <Route path="" element={<ProductsList />} />
+            <Route path=":id" element={<SingleProduct />} />
+          </Route>
+        </Route>
+
+        <Route path="/" element={<AdminLayout />}>
+          <Route path="/all-products" element={<AllProducts />} />
+          <Route path="/create-product" element={<CreateProduct />} />
+          <Route path="update-product" element={<UpdateProduct />} />
+          <Route path="/delete-product" element={<DeleteProduct />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    </UserContext.Provider>
+    
+  );
 }
 
-export default App
+export default App;
